@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
+
 os.environ['PORT'] = '5000'
 app = Flask ('__name__', static_url_path='/static')
 
