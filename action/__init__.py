@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
-app = Flask ('__name__')
+import os
+os.environ['PORT'] = '5000'
+app = Flask ('__name__', static_url_path='/static')
 
 app.config['SECRET_KEY'] = 'N'
 
