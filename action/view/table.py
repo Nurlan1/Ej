@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from action import app
 from flask import jsonify
 from action.model.user import Group, Student

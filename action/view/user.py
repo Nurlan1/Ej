@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from action import app
 from action.controller import addusercontroller
 from action.model.user import User

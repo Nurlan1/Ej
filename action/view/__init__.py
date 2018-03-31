@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from action import app
 from action.view import user
 from action.view import table

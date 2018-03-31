@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # from .db import db
 from werkzeug.security import generate_password_hash
 import uuid

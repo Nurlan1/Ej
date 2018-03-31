@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from action.model.user import adduser
 def addusercontroller(by):
     return adduser(by)
