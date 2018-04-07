@@ -65,7 +65,7 @@ def token_required(f):
             try:
              data = jwt.decode(refresh_token, app.config['SECRET_KEY'])
              current_user = User.query.filter_by(public_id=data['public_id']).first()
-             token = jwt.encode({'public_id': current_user.public_id, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=25)},app.config['SECRET_KEY'])
+             token = jwt.encode({'public_id': current_user.public_id, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)},app.config['SECRET_KEY'])
             except:
                 return 'token is invalid', 401
 
@@ -85,7 +85,7 @@ def login():
             return render_template('login.html', form=form, info="Неправильный логин или пароль...")
         elif check_password_hash(user_info.password, password):
             token = jwt.encode({'public_id': user_info.public_id, 'exp': datetime.datetime.utcnow()+datetime.timedelta(minutes=35)}, app.config['SECRET_KEY'])
-            refresh_token = jwt.encode({'public_id': user_info.public_id, 'exp': datetime.datetime.utcnow()+datetime.timedelta(minutes=59)}, app.config['SECRET_KEY'])
+            refresh_token = jwt.encode({'public_id': user_info.public_id, 'exp': datetime.datetime.utcnow()+datetime.timedelta(minutes=500)}, app.config['SECRET_KEY'])
             resp = make_response(redirect(url_for('logged', public_Id=user_info.public_id)))
             resp.set_cookie('x-access-token', token)
             resp.set_cookie('x-refresh-token', refresh_token)
