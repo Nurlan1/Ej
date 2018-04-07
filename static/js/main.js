@@ -1,4 +1,3 @@
-
 $('document').ready( function() {
     /*For mobile version of left side bar*/
     $(".button-collapse").sideNav();
@@ -26,13 +25,13 @@ $('document').ready( function() {
                 required: true,
                 equalTo: "#password"
             },
-            admin: {
+            checkboxAdmin: {
                 required: true
             },
-            teacher: {
+            checkboxTeacher: {
                 required: true
             },
-            student: {
+            checkboxStudent: {
                 required: true
             }
         },
@@ -54,13 +53,13 @@ $('document').ready( function() {
                 required: "Заполните все поля",
                 equalTo: "Пароли должны совпадать"
             },
-            admin: {
+            checkboxAdmin: {
                 required: "*"
             },
-            teacher: {
+            checkboxTeacher: {
                 required: ""
             },
-            student: {
+            checkboxStudent: {
                 required: ""
             }
         },
@@ -89,28 +88,52 @@ $('document').ready( function() {
         },
         errorElement: "span"
     });
-
-
 });
+
+
 /*Rendering tables with lesson*/
 function renderTable() {
 
-    var table = $('<table>', { "id": "group", "class": "mdl-data-table"}).appendTo('#content');
-    var thead = $('<thead>').appendTo(table);
-    var tr = $('<tr>').appendTo(thead);
-    var name = $('<th>').html("Имя").appendTo(tr);
-    var discipline = $('<th>').html("Предмет").appendTo(tr);
-    var grade = $('<th>').html("Оценка").appendTo(tr);
-    var edit = $('<th>').html("Изменить").appendTo(tr);
+        var table = $('<table>', { "id": "group", "class": "mdl-data-table"}).appendTo('#content');
+        var thead = $('<thead>').appendTo(table);
+        var tr = $('<tr>').appendTo(thead);
+        var name = $('<th>').html("Имя").appendTo(tr);
+        var discipline = $('<th>').html("Предмет").appendTo(tr);
+        var grade = $('<th>').html("Оценка").appendTo(tr);
+        var edit = $('<th>').html("Изменить").appendTo(tr);
 
-/*jquery plugin for work with tables*/
-    $('#group').DataTable({
-        "ajax": '../arrays.json',
-        "language": {
-                "url": 'tableLangRus.json'
-            }
-    });
+    /*jquery plugin for work with tables*/
+        $('#group').DataTable({
+            "ajax": '../arrays.json',
+            "language": {
+                    "url": 'tableLangRus.json'
+                }
+        });
+
+
 };
+function fetchData() {
+    return axios({
+        method: 'get',
+        url: '/get_groups'
+    }).then(function(response) {
+        return response.data;
+    }).catch(error => {
+        return error.response.data;
+    });
+}
+data = fetchData();
+data.then(function(data) {
+    data = data.groups;
+    for (var i = 0; i < data.length; i++) {
+        var li = $('<li>').appendTo('#subheader');
+        var a = $('<a>', {
+            "href": "#",
+            "class": "waves-effect",
+            "onсlick": "renderTable()"
+        }).html(data[i].name).appendTo(li);
+    };
+});
 /*Show password button*/
 $('#showPassword').click(function(){
   if ($('#password').prop('type') == 'password' && $('#confirm_password').prop('type') == 'password') {
@@ -123,22 +146,22 @@ $('#showPassword').click(function(){
 });
 
 /*Switch cases*/
-$('#checkboxAdmin').click(function(){
-    if($('#checkboxAdmin').prop('checked', true) || $('#checkboxTeacher').prop('checked', true)){
-        $('#checkboxStudent').prop('checked', false);
-    };
-});
-$('#checkboxTeacher').click(function(){
-    if($('#checkboxTeacher').prop('checked', true)){
-        $('#checkboxStudent').prop('checked', false);
-    };
-});
-$('#checkboxStudent').click(function(){
-    if($('#checkboxStudent').prop('checked', true)){
-        $('#checkboxAdmin').prop('checked', false);
-        $('#checkboxTeacher').prop('checked', false);
-    };
-});
+//$('#checkboxAdmin').click(function(){
+//    if($('#checkboxAdmin').prop('checked', true) || $('#checkboxTeacher').prop('checked', true)){
+//        $('#checkboxStudent').prop('checked', false);
+//    };
+//});
+//$('#checkboxTeacher').click(function(){
+//    if($('#checkboxTeacher').prop('checked', true) || $('#checkboxAdmin').prop('checked', true)){
+//        $('#checkboxStudent').prop('checked', false);
+//    };
+//});
+//$('#checkboxStudent').click(function(){
+//    if($('#checkboxStudent').prop('checked', true)){
+//        $('#checkboxAdmin').prop('checked', false);
+//        $('#checkboxTeacher').prop('checked', false);
+//    };
+//});
 // function addNewGroup() {
 //     var li = $('<li>', { "id": "inGroup" }).insertBefore("#newGroup");
 //     var input = $('<input>', {"type": "text", "placeholder": "введите название"}).appendTo(li);

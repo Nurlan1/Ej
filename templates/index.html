@@ -8,65 +8,50 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.material.min.css">
+    <link rel="stylesheet" href="css/media.css">
     <link rel="stylesheet" href="{{url_for('static',filename='css/materialize.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
 </head>
 
 <body>
+
     <div class="navbar-fixed">
         <nav class="nav-extended green lighten-1">
             <div class="nav-wrapper">
                 <a href="/" class="brand-logo">
                     <i class="material-icons">assignment</i>
+                    Журнал
                 </a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse">
                     <i class="material-icons">menu</i>
                 </a>
-
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <!-- Dropdown Structure -->
                     <ul id="user-settings" class="dropdown-content">
-                        <li><a href="#!">Настройки</a></li>
-
+                        <li><a href="#!">настройки</a></li>
                     </ul>
-                     <li><a class="dropdown-trigger" href="#" id="authUser" data-activates="user-settings">{{name}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-activates="user-settings">{{name}}<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="/logout">Выйти</a></li>
                 </ul>
-
             </div>
         </nav>
     </div>
 
-
     <ul id="mobile-demo" class="side-nav fixed">
         <li><a href="#" class="subheader">Все группы</a></li>
-        <li><a class="waves-effect" href="#" onclick="renderTable()">Пи(англ)б 1-16</a></li>
-        <li><a class="waves-effect" href="#">Группа2</a></li>
-        <li><a class="waves-effect" href="#!">Группа3</a></li>
-        <!-- <li id="inGroup"><input type="text" placeholder="название"></li> -->
+        <ul id="subheader"></ul>
         <li style="width: auto;" id="newGroup"><a href="#" class="btn waves-effect green lighten-1" onclick="addNewGroup()">Добавить</a></li>
     </ul>
 
-    <div id="content" class="right">
-        <!-- <table id="group" class="mdl-data-table">
-            <thead>
-                <tr>
-                    <th>Имя</th>
-                    <th>Предмет</th>
-                    <th>Оценка</th>
-                    <th>Изменить</th>
-                </tr>
-            </thead>
-        </table> -->
-    </div>
+    <div id="content" class="right"></div>
 
-
-
-
-    <script src="{{url_for('static',filename='js/jquery-3.3.1.js')}}" charset="utf-8"></script>
+    <script src="{{url_for('static',filename='js/jquery-3.3.1.js')}}"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" charset="utf-8"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js" charset="utf-8"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{url_for('static',filename='js/materialize.js')}}" charset="utf-8"></script>
     <script src="{{url_for('static',filename='js/main.js')}}" charset="utf-8"></script>
+
 </body>
 
 </html>
