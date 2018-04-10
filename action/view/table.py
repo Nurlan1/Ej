@@ -6,9 +6,9 @@ from action.model.user import User, Group, Group_discipline,Teachers_group,Disci
 from.user import token_required
 
 @app.route('/get_groups', methods=['GET'])
-@token_required
-def get_groups(current_user,token):
-
+# @token_required
+def get_groups():
+    current_user = User.query.filter_by(id=1).first()
     groups=current_user.rteacher[0].groups
     # teacher1 = Discipline.query.filter_by(id=1).all()
     #
@@ -60,8 +60,10 @@ def get_group(id):
 
 
 @app.route('/get_disciplines/<id>', methods=['GET'])
-@token_required
-def get_discipline(current_user,token,id):
+# @token_required
+def get_discipline(id):
+    # current_user, token,
+    current_user = User.query.filter_by(id=1).first()
     output = []
     disciplines = Group_discipline.query.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id).all()
     for discipline in disciplines:
