@@ -42,7 +42,7 @@ def get_student():
         student_data['email'] = student.email
         output.append(student_data)
     return jsonify({'groups': output})
-@app.route('/get_group/<id>/<sub>/<subject>', methods=['GET'])
+@app.route('/get_group/id=<id>&sub=<sub>&dis=<subject>', methods=['GET'])
 @crossdomain(origin='*')
 @token_required
 def get_group(current_user,token,id,sub,subject):
