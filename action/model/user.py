@@ -101,6 +101,7 @@ class Group(db.Model):
     name = db.Column(db.String, unique=True)
     major = db.Column(db.Integer)
     teachers = db.relationship('Teachers_group', backref='group')
+    subgroups = db.relationship('SubGroup', backref='group')
 
 
 class Teacher(db.Model):
@@ -114,8 +115,10 @@ class Teacher(db.Model):
 class Group_discipline(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
+    sub_id = db.Column(db.Integer)
     discipline_id = db.Column(db.Integer, db.ForeignKey('discipline.id'))
     teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))
+
 
 
 class Teachers_group(db.Model):
@@ -130,6 +133,14 @@ class Discipline(db.Model):
     credit = db.Column(db.Integer)
     academic_hours = db.Column(db.Integer)
     groups = db.relationship('Group_discipline', backref='discipline')
+
+
+class SubGroup(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
+    teacher_id = db.Column(db.Integer)
+    sub = db.Column(db.Integer)
+    student_id = db.Column(db.Integer)
 
 
 def adduser(params):

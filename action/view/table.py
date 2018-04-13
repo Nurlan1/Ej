@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from action import app
 from flask import jsonify
-from action.model.user import Group, Student,Teacher
-from action.model.user import User, Group, Group_discipline,Teachers_group,Discipline
+from action.model.user import User, Group, Group_discipline, Student
 from.user import token_required
+from .allow_origin import crossdomain
+from .subgroup import get_sub
 
 @app.route('/get_groups', methods=['GET'])
 # @token_required
@@ -41,22 +42,26 @@ def get_student():
         student_data['email'] = student.email
         output.append(student_data)
     return jsonify({'groups': output})
-@app.route('/get_group/<id>', methods=['GET'])
-# @token_required
-def get_group(id):
-    output = []
-    group_list = Student.query.filter_by(group_id=id).all()
-    print(group_list)
-    for student in group_list:
-        student_data = {}
-        student_data['id'] = student.id
-        student_data['full_name'] = student.full_name
-        student_data['group_id'] = student.group_id
-        student_data['status_id'] = student.status_id
-        student_data['phone'] = student.phone
-        student_data['email'] = student.email
-        output.append(student_data)
-    return jsonify({'list_of_group': output})
+@app.route('/get_group/<id>/<sub>/<subject>', methods=['GET'])
+@crossdomain(origin='*')
+@token_required
+def get_group(current_user,token,id,sub,subject):
+    if sub == '0':
+        output = []
+        group_list = Student.query.filter_by(group_id=id).all()
+        print(group_list)
+        for student in group_list:
+            student_data = {}
+            student_data['id'] = student.id
+            student_data['full_name'] = student.full_name
+            student_data['group_id'] = student.group_id
+            student_data['status_id'] = student.status_id
+            student_data['phone'] = student.phone
+            student_data['email'] = student.email
+            output.append(student_data)
+        return jsonify({'data': output})
+    else:
+        return get_sub(id,sub,current_user.id,subject)
 
 
 @app.route('/get_disciplines/<id>', methods=['GET'])
@@ -69,7 +74,12 @@ def get_discipline(id):
     for discipline in disciplines:
         discipline_data = {}
         discipline_data['id'] = discipline.discipline.id
-        discipline_data['name'] = discipline.discipline.name
+        discipline_data['sub_id'] = discipline.sub_id
+        if discipline.sub_id!=0:
+            discipline_data['name'] = discipline.discipline.name + "(" + str(discipline.sub_id) + "подгруппа)"
+        else:
+
+            discipline_data['name'] = discipline.discipline.name
         discipline_data['credit'] = discipline.discipline.credit
         discipline_data['academic_hours'] = discipline.discipline.academic_hours
         output.append(discipline_data)

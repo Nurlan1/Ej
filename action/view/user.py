@@ -12,7 +12,7 @@ from action import db
 from functools import wraps
 @app.route('/newuser', methods=['GET','POST'])
 def adduser():
-    # db.create_all()
+    db.create_all()
     if request.method == 'POST':
         data = request.form
         print(data['password'])
