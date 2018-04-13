@@ -3,8 +3,8 @@ from flask import jsonify
 
 def get_sub(id,sub,teacher,subject):
     group= Group_discipline.query.filter_by(group_id=id, sub_id=sub,teacher_id=teacher,discipline_id=subject).first()
-    list = SubGroup.query.filter_by(group_id=id, sub=sub, teacher_id=teacher).all()
-    print(list)
+    print(group)
+    list = SubGroup.query.filter_by(group_id=group.id, sub=sub, teacher_id=teacher).all()
     output=[]
     for st in list:
         student=Student.query.filter_by(id=st.student_id).first()
