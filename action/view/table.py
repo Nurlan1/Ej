@@ -44,8 +44,9 @@ def get_student():
     return jsonify({'groups': output})
 @app.route('/get_group/id=<id>&sub=<sub>&dis=<subject>', methods=['GET'])
 @crossdomain(origin='*')
-@token_required
-def get_group(current_user,token,id,sub,subject):
+# @token_required
+def get_group(id,sub,subject):
+    # def get_group(current_user, token, id, sub, subject):
     if sub == '0':
         output = []
         group_list = Student.query.filter_by(group_id=id).all()
@@ -61,7 +62,7 @@ def get_group(current_user,token,id,sub,subject):
             output.append(student_data)
         return jsonify({'data': output})
     else:
-        return get_sub(id,sub,current_user.id,subject)
+        return get_sub(id,sub,1,subject)
 
 
 @app.route('/get_disciplines/<id>', methods=['GET'])
