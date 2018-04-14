@@ -108,7 +108,7 @@ def logged(current_user, token, public_Id):
 @token_required
 def logout(current_user, token):
 
-    resp=make_response(redirect('/'))
+    resp = make_response(redirect('/'))
     resp.set_cookie('x-access-token', expires=0)
     resp.set_cookie('x-refresh-token', expires=0)
     return resp
