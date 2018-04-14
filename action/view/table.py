@@ -43,26 +43,50 @@ def get_student():
         output.append(student_data)
     return jsonify({'groups': output})
 @app.route('/get_group/id=<id>&sub=<sub>&dis=<subject>', methods=['GET'])
-@crossdomain(origin='*')
+@crossdomain(origin='http://localhost:8000')
 # @token_required
 def get_group(id,sub,subject):
-    # def get_group(current_user, token, id, sub, subject):
-    if sub == '0':
-        output = []
-        group_list = Student.query.filter_by(group_id=id).all()
-        print(group_list)
-        for student in group_list:
-            student_data = {}
-            student_data['id'] = student.id
-            student_data['full_name'] = student.full_name
-            student_data['group_id'] = student.group_id
-            student_data['status_id'] = student.status_id
-            student_data['phone'] = student.phone
-            student_data['email'] = student.email
-            output.append(student_data)
-        return jsonify({'data': output})
-    else:
-        return get_sub(id,sub,1,subject)
+
+#     # def get_group(current_user, token, id, sub, subject):
+#     if sub == '0':
+#         output = []
+#         group_list = Student.query.filter_by(group_id=id).all()
+#         print(group_list)
+#         for student in group_list:
+#             student_data = {}
+#             student_data['id'] = student.id
+#             student_data['full_name'] = student.full_name
+#             student_data['group_id'] = student.group_id
+#             student_data['status_id'] = student.status_id
+#             student_data['phone'] = student.phone
+#             student_data['email'] = student.email
+#             output.append(student_data)
+#         return jsonify({'data': output})
+#     else:
+#         return get_sub(id,sub,1,subject)
+    string = '''[{ id: 1, name: "Абакиров Нурсултан",
+      grade: "40",
+      date: "07/04/2018"
+    },
+    {
+      id: 2,
+      name: "Акаев Жумгал",
+      grade: "50",
+      date: "07/04/2018"
+    },
+    {
+      id: 3,
+      name: "Ташполотов Нурлан",
+      grade: "30",
+      date: "07/04/2018"
+    },
+    {
+      id: 4,
+      name: "Алимбеков Эмиль",
+      grade: "60",
+      date: "07/04/2018"}]'''
+
+    return jsonify(string)
 
 
 @app.route('/get_disciplines/<id>', methods=['GET'])
