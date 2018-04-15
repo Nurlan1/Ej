@@ -44,6 +44,8 @@ def get_student():
         student_data['email'] = student.email
         output.append(student_data)
     return jsonify({'groups': output})
+
+
 @app.route('/get_group/id=<id>&sub=<sub>&dis=<subject>', methods=['GET'])
 @crossdomain(origin='http://localhost:8000')
 # @token_required
@@ -81,11 +83,11 @@ def get_discipline(id):
         discipline_data = {}
         discipline_data['id'] = discipline.discipline.id
         discipline_data['sub_id'] = discipline.sub_id
-        if discipline.sub_id != 0:
-            discipline_data['name'] = discipline.discipline.name + "(" + str(discipline.sub_id) + "подгруппа)"
-        else:
+        # if discipline.sub_id != 0:
+        #     discipline_data['name'] = discipline.discipline.name + "(" + str(discipline.sub_id) + "подгруппа)"
+        # else:
 
-            discipline_data['name'] = discipline.discipline.name
+        discipline_data['name'] = discipline.discipline.name
         discipline_data['credit'] = discipline.discipline.credit
         discipline_data['academic_hours'] = discipline.discipline.academic_hours
         output.append(discipline_data)
