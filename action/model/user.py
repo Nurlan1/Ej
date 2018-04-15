@@ -75,10 +75,10 @@ class SubGroup(db.Model):
     student_id = db.Column(db.Integer)
 
 
-class Attendance(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    student_id = db.Integer(db.Integer, db.ForeigKey('student.id'))
-    discipline_id = db.Integer(db.Integer, db.ForeignKey('discipline.id'))
+# class Attendance(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     student_id = db.Integer(db.Integer, db.ForeigKey('student.id'))
+#     discipline_id = db.Integer(db.Integer, db.ForeignKey('discipline.id'))
 
 
 def adduser(params):
