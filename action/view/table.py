@@ -7,6 +7,7 @@ from .allow_origin import crossdomain
 from .subgroup import get_sub
 
 @app.route('/get_groups', methods=['GET'])
+@crossdomain(origin='http://localhost:8000')
 # @token_required
 def get_groups():
     current_user = User.query.filter_by(id=1).first()
@@ -78,7 +79,7 @@ def get_discipline(id):
         discipline_data = {}
         discipline_data['id'] = discipline.discipline.id
         discipline_data['sub_id'] = discipline.sub_id
-        if discipline.sub_id!=0:
+        if discipline.sub_id != 0:
             discipline_data['name'] = discipline.discipline.name + "(" + str(discipline.sub_id) + "подгруппа)"
         else:
 
