@@ -29,6 +29,7 @@ def get_groups():
     return jsonify({'groups': output})
 
 @app.route('/get_students')
+@crossdomain(origin='http://localhost:8000')
 def get_student():
     students = Student.query.all()
     output = []
@@ -69,6 +70,7 @@ def get_group(id,sub,subject):
 
 
 @app.route('/get_disciplines/<id>', methods=['GET'])
+@crossdomain(origin='http://localhost:8000')
 # @token_required
 def get_discipline(id):
     # current_user, token,
