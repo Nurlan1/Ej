@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash
 import uuid
 import json
 from action import db
+from datetime import datetime
 
 
 class User(db.Model):
@@ -26,6 +27,7 @@ class Student(db.Model):
     phone = db.Column(db.String)
     auth_num = db.Column(db.Integer, db.ForeignKey('user.id'))
     email = db.Column(db.String)
+    attendance = db.relationship('Attendance', backref='student')
 
 
 class Group(db.Model):
@@ -65,6 +67,7 @@ class Discipline(db.Model):
     credit = db.Column(db.Integer)
     academic_hours = db.Column(db.Integer)
     groups = db.relationship('Group_discipline', backref='discipline')
+    attendance = db.relationship('Attendance', backref='Discipline')
 
 
 class SubGroup(db.Model):
@@ -75,10 +78,29 @@ class SubGroup(db.Model):
     student_id = db.Column(db.Integer)
 
 
-# class Attendance(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     student_id = db.Integer(db.Integer, db.ForeigKey('student.id'))
-#     discipline_id = db.Integer(db.Integer, db.ForeignKey('discipline.id'))
+class Attendance(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'))
+    discipline_id = db.Column(db.Integer, db.ForeignKey('discipline.id'))
+    status = db.Column(db.Boolean)
+    date = db.Column(db.DateTime, default=datetime.utcnow())
+
+
+class Schedule(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))
+    discipline_id = db.Column(db.Integer, db.ForeignKey('discipline.id'))
+    discipline_type = db.Column(db.Integer, db.ForeignKey('discipline_type.id'))
+    time = db.Column(db.String)
+    week_day = db.Column(db.Integer)
+    weeks = db.Column(db.Integer)
+    week_type = db.Column(db.Integer)
+
+
+class DisciplineType(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    disciplines = db.relationship('Schedule', backref='DisciplineType')
 
 
 def adduser(params):

@@ -83,11 +83,11 @@ def get_discipline(id):
         discipline_data = {}
         discipline_data['id'] = discipline.discipline.id
         discipline_data['sub_id'] = discipline.sub_id
-        # if discipline.sub_id != 0:
-        #     discipline_data['name'] = discipline.discipline.name + "(" + str(discipline.sub_id) + "подгруппа)"
-        # else:
-
-        discipline_data['name'] = discipline.discipline.name
+        if discipline.sub_id != 0:
+            discipline_data['name'] = discipline.discipline.name + "(" + str(discipline.sub_id) + ")"
+        else:
+            discipline_data['name'] = discipline.discipline.name
+        discipline_data['name_id'] = discipline.discipline.name + str(discipline.sub_id)
         discipline_data['credit'] = discipline.discipline.credit
         discipline_data['academic_hours'] = discipline.discipline.academic_hours
         output.append(discipline_data)
