@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from action import app
+from action import app,db
 from flask import jsonify
-from action.model.user import User, Group, Group_discipline, Student
+from action.model.user import User, Group, Group_discipline, Student,DisciplineType
 from.user import token_required
 from .allow_origin import crossdomain
 from .subgroup import get_sub
@@ -80,12 +80,16 @@ def get_group(id, sub, subject):
 def get_discipline(id):
     # current_user, token,
     current_user = User.query.filter_by(id=1).first()
+
     output = []
     disciplines = Group_discipline.query.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id).all()
     for discipline in disciplines:
+
         discipline_data = {}
         discipline_data['id'] = discipline.discipline.id
         discipline_data['sub_id'] = discipline.sub_id
+        discipline_data['dis_type'] = discipline.dis_type
+        discipline_data['dis_tn'] = DisciplineType.query.filter_by(id=discipline.dis_type).first().name
         if discipline.sub_id != 0:
             discipline_data['name'] = discipline.discipline.name + "(" + str(discipline.sub_id) + ")"
         else:

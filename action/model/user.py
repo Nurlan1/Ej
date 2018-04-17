@@ -51,8 +51,8 @@ class Group_discipline(db.Model):
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
     sub_id = db.Column(db.Integer)
     discipline_id = db.Column(db.Integer, db.ForeignKey('discipline.id'))
+    dis_type = db.Column(db.Integer, db.ForeignKey('discipline_type.id'))
     teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))
-
 
 
 class Teachers_group(db.Model):
@@ -82,6 +82,7 @@ class Attendance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('student.id'))
     discipline_id = db.Column(db.Integer, db.ForeignKey('discipline.id'))
+    dis_type = db.Column(db.Integer, db.ForeignKey('discipline_type.id'))
     status = db.Column(db.Boolean)
     date = db.Column(db.DateTime, default=datetime.utcnow())
 
@@ -90,7 +91,7 @@ class Schedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))
     discipline_id = db.Column(db.Integer, db.ForeignKey('discipline.id'))
-    discipline_type = db.Column(db.Integer, db.ForeignKey('discipline_type.id'))
+    dis_type = db.Column(db.Integer, db.ForeignKey('discipline_type.id'))
     time = db.Column(db.String)
     week_day = db.Column(db.Integer)
     weeks = db.Column(db.Integer)
@@ -100,6 +101,7 @@ class Schedule(db.Model):
 class DisciplineType(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
+    short = db.Column(db.String(10))
     disciplines = db.relationship('Schedule', backref='DisciplineType')
 
 
