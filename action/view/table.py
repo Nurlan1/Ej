@@ -5,6 +5,7 @@ from action.model.user import User, Group, Group_discipline, Student
 from.user import token_required
 from .allow_origin import crossdomain
 from .subgroup import get_sub
+# from flask_cors import cross_origin
 
 @app.route('/get_groups', methods=['GET'])
 @crossdomain(origin='http://localhost:8000')
@@ -48,8 +49,9 @@ def get_student():
 
 @app.route('/get_group/id=<id>&sub=<sub>&dis=<subject>', methods=['GET'])
 @crossdomain(origin='http://localhost:8000')
+# @cross_origin()
 # @token_required
-def get_group(id,sub,subject):
+def get_group(id, sub, subject):
 
     # def get_group(current_user, token, id, sub, subject):
     if sub == '0':
@@ -73,6 +75,7 @@ def get_group(id,sub,subject):
 
 @app.route('/get_disciplines/<id>', methods=['GET'])
 @crossdomain(origin='http://localhost:8000')
+# @cross_origin()
 # @token_required
 def get_discipline(id):
     # current_user, token,
