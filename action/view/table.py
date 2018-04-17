@@ -80,11 +80,11 @@ def get_group(id, sub, subject):
 def get_discipline(id):
     # current_user, token,
     current_user = User.query.filter_by(id=1).first()
-
     output = []
-    disciplines = Group_discipline.query.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id).all()
-    for discipline in disciplines:
+    # query = db.session.query(Group_discipline)
+    disciplines = Group_discipline.query.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id).group_by(Group_discipline.discipline_id)
 
+    for discipline in disciplines:
         discipline_data = {}
         discipline_data['id'] = discipline.discipline.id
         discipline_data['sub_id'] = discipline.sub_id
