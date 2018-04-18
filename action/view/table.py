@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from action import app,db
 from flask import jsonify
-from action.model.user import User, Group, Group_discipline, Student,DisciplineType
+from action.model.user import User, Group, Group_discipline, Student,DisciplineType, Schedule
 from.user import token_required
 from .allow_origin import crossdomain
 from .subgroup import get_sub
 # from flask_cors import cross_origin
 
 @app.route('/get_groups', methods=['GET'])
-@crossdomain(origin='http://localhost:8000')
+@crossdomain(origin='*')
 # @token_required
 def get_groups():
     current_user = User.query.filter_by(id=1).first()
@@ -30,7 +30,7 @@ def get_groups():
     return jsonify({'groups': output})
 
 @app.route('/get_students')
-@crossdomain(origin='http://localhost:8000')
+@crossdomain(origin='*')
 def get_student():
     students = Student.query.all()
     output = []
@@ -48,7 +48,7 @@ def get_student():
 
 
 @app.route('/get_group/id=<id>&sub=<sub>&dis=<subject>', methods=['GET'])
-@crossdomain(origin='http://localhost:8000')
+@crossdomain(origin='*')
 # @cross_origin()
 # @token_required
 def get_group(id, sub, subject):
@@ -74,7 +74,7 @@ def get_group(id, sub, subject):
 
 
 @app.route('/get_disciplines/<id>', methods=['GET'])
-@crossdomain(origin='http://localhost:8000')
+@crossdomain(origin='*')
 # @cross_origin()
 # @token_required
 def get_discipline(id):
@@ -101,11 +101,11 @@ def get_discipline(id):
 
 
 @app.route('/get_type/<id>&dis=<dis>&sub=<sub>', methods=['GET'])
-@crossdomain(origin='http://localhost:8000')
+@crossdomain(origin='*')
 def get_type(id,dis,sub):
     # current_user, token,
     current_user = User.query.filter_by(id=1).first()
-    types = Group_discipline.query.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id,discipline_id=dis, sub_id=sub).all()
+    types = Group_discipline.query.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id, discipline_id=dis, sub_id=sub).all()
     output=[]
     for type in types:
         type_data={}
@@ -113,3 +113,10 @@ def get_type(id,dis,sub):
         type_data['dis_tn'] = DisciplineType.query.filter_by(id=type.dis_type).first().name
         output.append(type_data)
     return jsonify({'type_of_discipline': output})
+
+
+# @app.route('/get_date/<id>&dis=<dis>&sub=<sub>&type=<tyep>', methods=['GET'])
+# @crossdomain(origin='http://localhost:8000')
+# def get_date(id,dis,sub,type):
+#     current_user = User.query.filter_by(id=1).first()
+#     info = Schedule.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id, discipline_id=dis, ).first
