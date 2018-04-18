@@ -83,7 +83,6 @@ def get_discipline(id):
     output = []
     # query = db.session.query(Group_discipline)
     disciplines = Group_discipline.query.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id).group_by(Group_discipline.discipline_id)
-
     for discipline in disciplines:
         discipline_data = {}
         discipline_data['id'] = discipline.discipline.id
@@ -99,3 +98,18 @@ def get_discipline(id):
         discipline_data['academic_hours'] = discipline.discipline.academic_hours
         output.append(discipline_data)
     return jsonify({'list_of_discipline': output})
+
+
+@app.route('/get_type/<id>&dis=<dis>&sub=<sub>', methods=['GET'])
+@crossdomain(origin='http://localhost:8000')
+def get_type(id,dis,sub):
+    # current_user, token,
+    current_user = User.query.filter_by(id=1).first()
+    types = Group_discipline.query.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id,discipline_id=dis, sub_id=sub).all()
+    output=[]
+    for type in types:
+        type_data={}
+        type_data['dis_type'] = type.dis_type
+        type_data['dis_tn'] = DisciplineType.query.filter_by(id=type.dis_type).first().name
+        output.append(type_data)
+    return jsonify({'type_of_discipline': output})
