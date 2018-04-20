@@ -17,4 +17,5 @@ def get_sub(id,sub,teacher,subject):
         student_data['phone'] = student.phone
         student_data['email'] = student.email
         output.append(student_data)
+        print(output)
     return jsonify(output)
