@@ -115,8 +115,8 @@ def get_type(id,dis,sub):
     return jsonify({'type_of_discipline': output})
 
 
-# @app.route('/get_date/<id>&dis=<dis>&sub=<sub>&type=<tyep>', methods=['GET'])
-# @crossdomain(origin='http://localhost:8000')
-# def get_date(id,dis,sub,type):
-#     current_user = User.query.filter_by(id=1).first()
-#     info = Schedule.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id, discipline_id=dis, ).first
+@app.route('/get_date/<id>&dis=<dis>&sub=<sub>&type=<tyep>', methods=['GET'])
+@crossdomain(origin='http://localhost:8000')
+def get_date(id,dis,sub,type):
+    current_user = User.query.filter_by(id=1).first()
+    info = Schedule.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id, discipline_id=dis, ).first
