@@ -1,5 +1,62 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+
+<!--<head>-->
+    <!--<meta charset="utf-8">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
+    <!--<title>Добро пожаловать</title>-->
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">-->
+    <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.material.min.css">-->
+    <!--<link rel="stylesheet" href="css/media.css">-->
+    <!--<link rel="stylesheet" href="{{url_for('static',filename='css/materialize.css')}}">-->
+    <!--<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">-->
+<!--</head>-->
+
+<!--<body>-->
+
+    <!--<div class="navbar-fixed">-->
+        <!--<nav class="nav-extended green lighten-1">-->
+            <!--<div class="nav-wrapper">-->
+                <!--<a href="/" class="brand-logo">-->
+                    <!--<i class="material-icons">assignment</i>-->
+                    <!--Журнал-->
+                <!--</a>-->
+                <!--<a href="#" data-activates="mobile-demo" class="button-collapse">-->
+                    <!--<i class="material-icons">menu</i>-->
+                <!--</a>-->
+                <!--<ul id="nav-mobile" class="right hide-on-med-and-down">-->
+                    <!--&lt;!&ndash; Dropdown Structure &ndash;&gt;-->
+                    <!--<ul id="user-settings" class="dropdown-content">-->
+                        <!--<li><a href="#!">настройки</a></li>-->
+                    <!--</ul>-->
+                    <!--<li><a class="dropdown-trigger" href="#!" data-activates="user-settings">{{name}}<i class="material-icons right">arrow_drop_down</i></a></li>-->
+                    <!--<li><a href="/logout">Выйти</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</nav>-->
+    <!--</div>-->
+
+    <!--<ul id="mobile-demo" class="side-nav fixed">-->
+        <!--<li><a href="#" class="subheader">Все группы</a></li>-->
+        <!--<ul id="subheader"></ul>-->
+        <!--<li style="width: auto;" id="newGroup"><a href="#" class="btn waves-effect green lighten-1" onclick="addNewGroup()">Добавить</a></li>-->
+    <!--</ul>-->
+
+    <!--<div id="content" class="right"></div>-->
+
+    <!--<script src="{{url_for('static',filename='js/jquery-3.3.1.js')}}"></script>-->
+    <!--<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" charset="utf-8"></script>-->
+    <!--<script src="https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js" charset="utf-8"></script>-->
+    <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+    <!--<script src="{{url_for('static',filename='js/materialize.js')}}" charset="utf-8"></script>-->
+    <!--<script src="{{url_for('static',filename='js/main.js')}}" charset="utf-8"></script>-->
+
+<!--</body>-->
+
+<!--</html>-->
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 
 <head>
     <meta charset="utf-8">
@@ -9,12 +66,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.material.min.css">
     <link rel="stylesheet" href="css/media.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/tabulator.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/tabulator.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/materialize.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/semantic.css">
+    <link rel="stylesheet" href="css/tabulator.css">
+    <link rel="stylesheet" href="css/materialize.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <style media="screen">
+        .row .col {
+            padding: 0;
+        }
+    </style>
 </head>
 
-<body>
-
+<body >
     <div class="navbar-fixed">
         <nav class="nav-extended green lighten-1">
             <div class="nav-wrapper">
@@ -30,27 +99,235 @@
                     <ul id="user-settings" class="dropdown-content">
                         <li><a href="#!">настройки</a></li>
                     </ul>
-                    <li><a class="dropdown-trigger" href="#!" data-activates="user-settings">{{name}}<i class="material-icons right">arrow_drop_down</i></a></li>
-                    <li><a href="/logout">Выйти</a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-activates="user-settings">Пользователь<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="#">Выйти</a></li>
                 </ul>
             </div>
         </nav>
     </div>
 
-    <ul id="mobile-demo" class="side-nav fixed">
-        <li><a href="#" class="subheader">Все группы</a></li>
-        <ul id="subheader"></ul>
-        <li style="width: auto;" id="newGroup"><a href="#" class="btn waves-effect green lighten-1" onclick="addNewGroup()">Добавить</a></li>
-    </ul>
+    <div class="ui grid stackable">
+        <div class="three wide column">
+            <ul id="mobile-demo" class="side-nav fixed">
+                <li><a href="#" class="subheader">Все группы</a></li>
+                <ul id="subheader"></ul>
+                <li class="divider"></li>
+                <!-- <li style="width: auto;" id="newGroup"><a href="#" class="btn waves-effect green lighten-1" onclick="addNewGroup()">Добавить</a></li> -->
+            </ul>
+        </div>
+        <div class="thirteen wide column">
+            <div id="content"></div>
+        </div>
+    </div>
 
-    <div id="content" class="right"></div>
-
-    <script src="{{url_for('static',filename='js/jquery-3.3.1.js')}}"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" charset="utf-8"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js" charset="utf-8"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="{{url_for('static',filename='js/materialize.js')}}" charset="utf-8"></script>
-    <script src="{{url_for('static',filename='js/main.js')}}" charset="utf-8"></script>
+    <script src="js/jquery-3.3.1.js" charset="utf-8"></script>
+    <script src="js/jquery-ui.js" charset="utf-8"></script>
+    <script src="js/materialize.js" charset="utf-8"></script>
+    <script src="js/semantic.js" charset="utf-8"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/tabulator.js" charset="utf-8"></script>
+    <script src="js/main.js" charset="utf-8"></script>
+    <script src="js/axios.js"></script>
+    <script type="text/javascript">
+  /*Set of all cyrilic alphabetic symbols*/
+  var arrru = new Array('Я', 'я', 'Ю', 'ю', 'Ч', 'ч', 'Ш', 'ш', 'Щ', 'щ', 'Ж', 'ж', 'А', 'а', 'Б', 'б', 'В', 'в', 'Г', 'г', 'Д', 'д', 'Е', 'е', 'Ё', 'ё', 'З', 'з', 'И', 'и', 'Й', 'й', 'К', 'к', 'Л', 'л', 'М', 'м', 'Н', 'н', 'О',
+      'о', 'П', 'п',
+      'Р', 'р', 'С', 'с', 'Т', 'т', 'У', 'у', 'Ф', 'ф', 'Х', 'х', 'Ц', 'ц', 'Ы', 'ы', 'Ь', 'ь', 'Ъ', 'ъ', 'Э', 'э');
+  /*Set of all latin alphabetic symbols*/
+  var arren = new Array('Ya', 'ya', 'Yu', 'yu', 'Ch', 'ch', 'Sh', 'sh', 'Sh', 'sh', 'Zh', 'zh', 'A', 'a', 'B', 'b', 'V', 'v', 'G', 'g', 'D', 'd', 'E', 'e', 'E', 'e', 'Z', 'z', 'I', 'i', 'J', 'j', 'K', 'k', 'L', 'l', 'M', 'm', 'N',
+      'n', 'O',
+      'o', 'P', 'p', 'R', 'r', 'S', 's', 'T', 't', 'U', 'u', 'F', 'f', 'H', 'h', 'C', 'c', 'Y', 'y', '`', '`', '\'', '\'', 'E', 'e');
+  function toLatin(text) {
+      for (var i = 0; i < arrru.length; i++) {
+          var reg = new RegExp(arrru[i], "g");
+          text = text.replace(reg, arren[i]);
+      }
+      return text;
+  }
+  /*Global variables*/
+  var t = 0;
+  var editor;
+  /*///////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+              All static URL's for getting data by API
+  ////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  var urlGroupName = 'https://ejj.herokuapp.com/get_groups';
+  var urlSubjectName = 'http://10.42.0.206:5000/get_disciplines/';
+  var urlSubGroup = "http://10.42.0.206:5000/get_group/id=";
+  var urlGetSubjectType = "http://10.42.0.206:5000/get_type/"
+  /*///////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    getGroup - This function is nessesary to get data about Groups
+  ////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  getGroup = axios.get(urlGroupName)
+  getGroup.then(function(response) {
+      data = response.data.groups;
+      for (var i = 0; i < data.length; i++) {
+          var li = $('<li>').appendTo('#subheader');
+          var a = $('<a>', {
+              "class": "waves-effect loadSubject",
+              "onclick": "getSubject(" + data[i].id + ")"
+          }).html(data[i].name).appendTo(li);
+          if(i == 0){
+            $('.loadSubject').bind("load", getSubject(data[i].id));
+          }
+      };
+    }).catch(error => {
+        return error.data;
+    });
+    /*//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+       getSubjectName - This function is nessesary to get data about Disciplines
+    ////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+    function getSubjectName(group_id){
+        return axios({
+          method: "GET",
+          url: urlSubjectName + group_id
+        }).then(function(response) {
+               return response.data
+         }).catch(error => {
+             return error.data;
+         });
+    }
+    /*//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+       getSubject - This function is nessesary to get data about Disciplines
+    ////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+  function getSubject(group_id) {
+      if (t != group_id || t == group_id) {
+          $('#content').empty();
+      }
+      t = group_id;
+        allSubjects = getSubjectName(group_id);
+        allSubjects.then(function(response) {
+          data = response.list_of_discipline;
+            var main_tab = $('<div>', {
+                "id": "main_tab"
+            }).appendTo('#content');
+            var ui_secondary_menu = $('<div>', {
+                "class": "ui pointing secondary menu"
+            }).appendTo(main_tab);
+            for (var i = 0; i < data.length; i++) {
+                sub_id = data[i].sub_id;
+                dis_id = data[i].id;
+                var id_name = toLatin(data[i].name_id.replace(/\s/g, ''));
+                var ui_secondary_menu_item = $('<a>', {
+                    "class": "item tmp",
+                    "data-tab": id_name,
+                    "onclick": "renderDisType(" + id_name + "," + i + "," + group_id + "," + dis_id + "," + sub_id + ")"
+                }).html(data[i].name).appendTo(ui_secondary_menu);
+                if(i == 0){
+                  ui_secondary_menu_item.addClass("active");
+                }
+                $('.tmp').click(renderDisType(id_name, i, group_id, dis_id, sub_id));
+                // $('.secondary').load(renderDisType(id_name, i, group_id, dis_id, sub_id));
+                $('.item').tab();
+            }
+        })
+    }
+    function renderDisType(id_name, i, group_id, dis_id, sub_id) {
+      if(!$(".ui.tab.segment").is(":empty")){
+         $('.segment[data-tab='+ id_name + "]").remove();
+      }
+      var response = axios.get(urlGetSubjectType + group_id + "&dis=" + dis_id + "&sub=" + sub_id);
+      function getType(id_name, response){
+        dataType = response.data.type_of_discipline;
+        var ui_tab_segment = $('<div>', {
+            "data-tab": id_name,
+            "class": "ui tab segment"
+        }).appendTo("#main_tab");
+        // console.log(id_name);
+        if(i == 0){
+          ui_tab_segment.addClass("active");
+        }
+        var ui_top_attached_tabular_menu = $('<div>', {
+            "class": "ui top attached tabular menu",
+        }).appendTo(ui_tab_segment);
+        for (var j = 0; j < dataType.length; j++) {
+            var ui_top_attached_tabular_menu_item = $('<link>', {//This is subTab tmp
+                "data-tab": id_name + "/" + dataType[j].dis_type,
+                "class": "item",
+                "onload": "renderTable(" + id_name + "," + group_id + "," + sub_id + "," + dis_id + ");",
+            }).html(dataType[j].dis_tn).appendTo(ui_top_attached_tabular_menu);
+            // renderTable(id_name,group_id,sub_id,dis_id);
+            var ui_bottom_attached_tab_segment = $('<div>', {
+                "id": id_name,
+                "data-tab": id_name + "/" + dataType[j].dis_type,
+                "class": "ui bottom attached tab segment cont",
+            }).html(dataType[j].dis_tn).appendTo(ui_tab_segment);
+            if(j == 0 && i==0){
+              ui_top_attached_tabular_menu_item.addClass("active");
+              ui_bottom_attached_tab_segment.addClass("active");
+            }
+              // $('.cont.active').load(renderTable(id_name, group_id, sub_id, dis_id));
+              $('.item').tab();
+        }
+        }
+        response.then(getType.bind(response, id_name));
+      }
+    /*//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+       renderTable - This function is nessesary to load data about Users
+    ////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+        function renderTable(id_name, group_id, sub_id, dis_id) {
+            var dateEditor = function(cell, onRendered, success, cancel) {
+                var editor = $("<input type='date'></input>");
+                editor.css({
+                    "padding": "3px",
+                    "width": "100%",
+                    "box-sizing": "border-box",
+                });
+                editor.val(moment(cell.getValue(), "DD/MM/YYYY").format("YYYY-MM-DD"));
+                onRendered(function() {
+                    editor.focus();
+                    editor.css("height", "100%");
+                });
+                editor.on("change blur", function(e) {
+                    success(moment(editor.val(), "YYYY-MM-DD").format("DD/MM/YYYY"));
+                });
+                return editor;
+            };
+            // var tab_id = id_name.id;
+            $('.cont').tabulator({
+                height: "auto",
+                layout: "fitColumns",
+                tooltips: true,
+                addRowPos: "top",
+                responsiveLayout: true,
+                placeholder: "Нет данных",
+                columns: [{
+                        title: "Ф.И.О",
+                        field: "full_name",
+                        sorter: "string"
+                    },
+                    {
+                        title: "@Почта",
+                        field: "email",
+                        sorter: "number",
+                        editor: "input"
+                    },
+                    {
+                        title: "Номер",
+                        field: "phone",
+                        sorter: "number",
+                        align: "left",
+                        sorter: "date",
+                        editor: dateEditor
+                    },
+                    {
+                        title: "Присутствие",
+                        field: "attendance",
+                        sorter: "string",
+                        formatter: "tickCross",
+                        editor: true
+                    }
+                ],
+                dataEdited: function(data) {
+                    alert("Data is edited!");
+                }
+            });
+            getJSON = axios.get(urlSubGroup + group_id + "&sub=" + sub_id + "&dis=" + dis_id);
+            getJSON.then(function(response) {
+                $('.cont.active').tabulator("setData", response.data);
+            }).catch(error => {
+            });
+        }
+    </script>
 
 </body>
 
