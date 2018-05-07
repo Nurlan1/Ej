@@ -26,7 +26,7 @@ def get_groups():
         group_data={}
         group_data['id'] = group.id
         group_data['name'] = group.name
-        group_data['name_id'] = toLatin(group.name)
+        group_data['name_id'] = toLatin(group.name).replace(' ', '')
         group_data['major'] = group.major
         output.append(group_data)
     return jsonify(output)
@@ -95,7 +95,7 @@ def get_discipline(id):
             discipline_data['name'] = discipline.discipline.name + "(" + str(discipline.sub_id) + ")"
         else:
             discipline_data['name'] = discipline.discipline.name
-        discipline_data['name_id'] = toLatin(discipline.discipline.name) + str(discipline.sub_id)
+        discipline_data['name_id'] = str(toLatin(discipline.discipline.name) + str(discipline.sub_id)).replace(" ", "")
         discipline_data['credit'] = discipline.discipline.credit
         discipline_data['academic_hours'] = discipline.discipline.academic_hours
         output.append(discipline_data)
