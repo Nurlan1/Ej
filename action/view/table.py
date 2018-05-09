@@ -88,6 +88,7 @@ def get_discipline(id):
     for discipline in disciplines:
         discipline_data = {}
         discipline_data['id'] = discipline.discipline.id
+        discipline_data['group_id'] = int(id)
         discipline_data['sub_id'] = discipline.sub_id
         discipline_data['dis_type'] = discipline.dis_type
         discipline_data['dis_tn'] = DisciplineType.query.filter_by(id=discipline.dis_type).first().name
