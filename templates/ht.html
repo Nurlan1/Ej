@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Журнал</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  </head>
+  <body>
+
+    <div id="app">
+      <div class="col l3">
+        <ul class="tabs">
+          <template v-for="(group,index) in groups" >
+
+
+         <!--  <li class="indicator"  v-if="index==0" style="right: 251px; left: 0px;"></li> -->
+           <ul class="tab" >
+              <a v-if="index==0" class="tt" v-bind:href="'#' + group.id" >{{ group.name }}</a>
+              <a v-else="index!=0" class="tt" v-bind:href="'#' + group.id"  >{{ group.name }}</a>
+           </ul>
+          </template>
+        </ul>
+      </div>
+      <div class="col l9">
+        <div v-bind:id="group.id"  v-for="group in groups">
+          <ul class="tabs">
+             <li class="tab"v-for="(subject,index) in subjects" v-if="group.id == subject.group_id">
+
+                 <a href="#" :id="subject.name_id"  v-if="index!=0" style="display:none"  v-if="group.id == subject.group_id">{{ subject.name }}</a>
+                 <a href="#" :id="subject.name_id"  v-else v-if="group.id == subject.group_id">{{ subject.name }}</a>
+
+              </li>
+            </ul>
+              <!-- <div v-bind:id="subject.id">
+
+              </div>  -->
+        </div>
+
+
+
+      </div>
+       <!-- <div v-for="group in groups">
+        <p v-for="subject in subjects">
+          {{ subject.name }}
+        </p>
+        <p v-for="type in types">
+          {{ type.dis_tn }}
+        </p>
+             </div>  -->
+
+    </div>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js" charset="utf-8"></script>
+  <script>
+          var arr = [];
+          let i, j, k;
+          let groupsURL = 'https://ejj.herokuapp.com/get_groups',
+              subjectsURL = 'https://ejj.herokuapp.com/get_disciplines/',
+                typeURL = 'https://ejj.herokuapp.com/get_type/';
+          // let groupsURL = 'http://10.42.0.206:5000/get_groups',
+          //     subjectsURL = 'http://10.42.0.206:5000/get_disciplines/',
+          //       typeURL = 'http://10.42.0.206:5000/get_type/';
+            var app = new Vue({
+              el: '#app',
+              data: {
+                groups: [],
+                isActive: true,
+                subjects: [],
+                types: [],
+              },
+              methods: {
+                dis_query: function(){
+                  axios.get(groupsURL)
+                    .then(response => {
+                      this.groups = response.data;
+                      for(i = 0; i < this.groups.length; i++){
+
+
+                        axios.get(subjectsURL + this.groups[i].id)
+                        .then(this.getSubject.bind(response, this.groups[i].id));
+                     }
+                    });
+                  },
+                getSubject: function(group_id,response){
+
+                   dis_tn = response.data.list_of_discipline;
+                   for(j = 0; j < dis_tn.length; j++){
+                     arr.push(dis_tn[j]);
+                     axios.get(typeURL + group_id + "&dis=" + dis_tn[j].id + "&sub=" + dis_tn[j].sub_id)
+                       .then(response => {
+                         this.types = response.data.type_of_discipline;
+
+                       })
+
+                   }
+                   // console.log(arr[0].name);
+                   this.subjects = arr;
+
+                }
+             }
+            });
+            app.dis_query();
+            // app.dis();
+
+
+  </script>
+  <script>
+    $('#app .tt').attr("class","ahkfsd");
+      $('.tabs').tabs();
+    </script>
+  </body>
+</html>
