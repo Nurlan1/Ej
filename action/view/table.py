@@ -5,6 +5,8 @@ from action.model.user import User, Group, Group_discipline, Student,DisciplineT
 from.user import token_required
 from .allow_origin import crossdomain
 from .subgroup import get_sub
+import calendar
+import locale
 # from flask_cors import cross_origin
 import datetime
 
@@ -21,7 +23,7 @@ def get_groups():
     # # print(groups)
     output = []
     for gr in groups:
-        print(gr)
+
         group  = Group.query.filter_by(id=gr.group_id).first()
         group_data={}
         group_data['id'] = group.id
@@ -38,7 +40,8 @@ def get_student():
     students = Student.query.all()
     output = []
     for student in students:
-        print(student)
+
+
         student_data = {}
         student_data['id']=student.id
         student_data['full_name']= student.full_name
@@ -60,7 +63,7 @@ def get_group(id, sub, subject):
     if sub == '0':
         output = []
         group_list = Student.query.filter_by(group_id=id).all()
-        print(group_list)
+
         for student in group_list:
             student_data = {}
             student_data['id'] = student.id
@@ -165,5 +168,20 @@ def get_date(id, dis, sub, dtype):
                     dates.append(exception.todate)
                 else:
                     dates.append(str(next_monday.date()))
-    print(sorted(dates))
-    return '1'
+    dates=sorted(dates)
+    print(dates)
+    months=['Январь' , 'Февраль' , 'Март' , 'Апрель' , 'Май' , 'Июнь' , 'Июль' , 'Август' , 'Сентябрь' , 'Октябрь' , 'Ноябрь' , 'Декабрь'];
+    # print(months[int(dates[0][5:-3])-1])
+    output=[]
+    m = []
+    for i in range(len(dates)-1):
+        dat = {}
+        month=int(dates[i][5:-3])-1
+        m.append(int(dates[i][8:]))
+        if month !=int(dates[i+1][5:-3])-1:
+            dat['month'] = months[month]
+            dat['dates'] = m
+            output.append(dat)
+            m=[]
+
+    return jsonify(output)
