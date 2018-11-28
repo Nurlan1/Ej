@@ -113,7 +113,7 @@ function renderTable() {
 };
 /*Show password button*/
 $('#showPassword').click(function(){
-  if ($('#password').prop('type') == 'password' && $('#confirm_password').prop('type') == 'password') {
+  if ($('#password').prop('type') === 'password' || $('#confirm_password').prop('type') === 'password') {
     $('#password').prop('type', 'text');
     $('#confirm_password').prop('type', 'text');
 } else {
