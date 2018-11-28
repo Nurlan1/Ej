@@ -14,12 +14,30 @@ from functools import wraps
 def adduser():
     db.create_all()
     if request.method == 'POST':
-        data = request.form
-        print(data['password'])
-        hashed_password = generate_password_hash(data['password'], method='sha256')
-        admin = 0
-        student = 0
-        teacher = 0
+        try:
+            name = request.values['username']
+            password = request.values['password']
+            if name==''or password=='':
+                return jsonify({"success": False})
+            hashed_password = generate_password_hash(password, method='sha256')
+            admin = 0
+            student = 1
+            teacher = 0
+            try:
+                new_user = User(public_id=str(uuid.uuid4()), name=name, password=hashed_password,
+                                admin=admin, teacher=teacher, student=student)
+                print(new_user)
+                addusercontroller(new_user)
+                return jsonify({"success":True})
+            except:
+                return jsonify({"success":False})
+        except:
+            data = request.form
+
+            hashed_password = generate_password_hash(data['password'], method='sha256')
+            admin = 0
+            student = 0
+            teacher = 0
         try:
             if data['admin']=='on':
                 admin = 1
@@ -76,22 +94,41 @@ def token_required(f):
 @app.route('/', methods=['GET', 'POST'])
 def login():
     form = request.form
+
     if request.method == 'POST':
-        name = request.form['username']
-        password = request.form['password']
-        print(name)
-        user_info = User.query.filter_by(name=name).first()
+        name=""
+        try:
+            name = request.values['username']
+            password = request.values['password']
+
+            user_info = User.query.filter_by(name=name).first()
+            if user_info == None:
+                respons = {"success": False}
+            elif check_password_hash(user_info.password, password):
+                respons={"success": True, "name": name, "age":user_info.id, "username":name,"password": password }
+            else:
+                respons = {"success": False}
+            return jsonify(respons)
+        except:
+            name = request.form['login']
+            password = request.form['authPassword']
+            user_info = User.query.filter_by(name=name).first()
         if user_info == None:
+
             return render_template('login.html', form=form, info="Неправильный логин или пароль...")
         elif check_password_hash(user_info.password, password):
             token = jwt.encode({'public_id': user_info.public_id, 'exp': datetime.datetime.utcnow()+datetime.timedelta(minutes=35)}, app.config['SECRET_KEY'])
             refresh_token = jwt.encode({'public_id': user_info.public_id, 'exp': datetime.datetime.utcnow()+datetime.timedelta(minutes=500)}, app.config['SECRET_KEY'])
-            resp = make_response(redirect(url_for('logged', public_Id=user_info.public_id)))
+            resp = make_response(redirect(url_for('logged', public_Id = user_info.public_id)))
+            # , public_Id = user_info.public_id
             resp.set_cookie('x-access-token', token)
             resp.set_cookie('x-refresh-token', refresh_token)
+
             return resp
         else:
+
             return render_template('login.html', form=form, info="Неправильный логин или пароль...", user="nurik")
+
     return render_template('login.html', form=form)
 
 
@@ -112,3 +149,5 @@ def logout(current_user, token):
     resp.set_cookie('x-access-token', expires=0)
     resp.set_cookie('x-refresh-token', expires=0)
     return resp
+# @app.rout('/and', methods=['GET,POST'])
+# def

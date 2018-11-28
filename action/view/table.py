@@ -5,6 +5,8 @@ from action.model.user import User, Group, Group_discipline, Student,DisciplineT
 from.user import token_required
 from .allow_origin import crossdomain
 from .subgroup import get_sub
+from flask import render_template, request, redirect, url_for, jsonify, make_response
+
 import calendar
 import locale
 # from flask_cors import cross_origin
@@ -148,6 +150,7 @@ def get_date(id, dis, sub, dtype):
     current_user = User.query.filter_by(id=1).first()
     infos = Schedule.query.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id, discipline_id=dis, sub_id=sub, dis_type=dtype).all()
     exceptions = ExceptionDays.query.all()
+    print(infos)
     dates=[]
     for info in infos:
         today = datetime.datetime.strptime(FirstWeek.query.filter_by(id=1).first().date, "%Y-%m-%d")
@@ -168,20 +171,31 @@ def get_date(id, dis, sub, dtype):
                     dates.append(exception.todate)
                 else:
                     dates.append(str(next_monday.date()))
-    dates=sorted(dates)
-    print(dates)
-    months=['Январь' , 'Февраль' , 'Март' , 'Апрель' , 'Май' , 'Июнь' , 'Июль' , 'Август' , 'Сентябрь' , 'Октябрь' , 'Ноябрь' , 'Декабрь'];
+    dates = sorted(dates)
+    # print(dates)
+    months = ['Январь' , 'Февраль' , 'Март' , 'Апрель' , 'Май' , 'Июнь' , 'Июль' , 'Август' , 'Сентябрь' , 'Октябрь' , 'Ноябрь' , 'Декабрь'];
     # print(months[int(dates[0][5:-3])-1])
     output=[]
     m = []
     for i in range(len(dates)-1):
         dat = {}
-        month=int(dates[i][5:-3])-1
+        month = int(dates[i][5:-3])-1
         m.append(int(dates[i][8:]))
+
         if month !=int(dates[i+1][5:-3])-1:
             dat['month'] = months[month]
             dat['dates'] = m
             output.append(dat)
-            m=[]
+            m = []
+            print(output)
+
 
     return jsonify(output)
+
+
+@app.route('/loggin', methods=['POST'])
+def loggin():
+    login=request.values['username']
+    password=request.values['password']
+    print(login,password)
+    return '0'

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Добро пожаловать</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="static/css/materialize.css">
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/materialize.css">
+    <link rel="stylesheet" href="static/main.css">
 </head>
 
 <body class="grey lighten-3">
@@ -19,22 +19,20 @@
                 <div class="card-content">
                     <span class="card-title center-align">Авторизация</span>
                     <div class="row">
-                        <form action="/" id="authForm" class="center-align" method="post">
+                        <form method="POST" action="/" id="authForm" class="center-align" >
                             <div class="row">
                                 <div class="input-field">
-                                    <input required oninvalid="this.setCustomValidity('Заполните поле')" name="username"id="login" type="text" class="validate">
+                                    <input id="login" type="text" name="login" class="validate">
                                     <label for="login">Логин</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field">
-                                    <input required oninvalid="this.setCustomValidity('Заполните поле')" name="password"  id="password" type="password" class="validate">
-                                    <label for="password">Пароль</label>
+                                    <input id="password" type="password" name="authPassword" class="validate">
+                                    <label for="login">Пароль</label>
                                     <a href="#!" id="showPassword"><i class="material-icons">remove_red_eye</i></a>
                                 </div>
-                                <p style="color:red;">{{info}} </p>
                             </div>
-
                             <button class="btn waves-effect green lighten-1" type="submit" name="action">Войти</button>
                         </form>
                     </div>
@@ -45,10 +43,10 @@
         </div>
     </div>
 
-
-    <script src="static\js\jquery-3.3.1.js" charset="utf-8"></script>
-    <script src="static\js\materialize.js" charset="utf-8"></script>
-    <script src="static\js\main.js" charset="utf-8"></script>
+    <script src="static/jquery-3.3.1.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js" charset="utf-8"></script>
+    <script src="static/materialize.js" charset="utf-8"></script>
+    <script src="static/main.js" charset="utf-8"></script>
 </body>
 
 </html>

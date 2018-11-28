@@ -4421,6 +4421,36 @@ nav .input-field label.active i {
   }
 }
 
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Thin), url("../fonts/roboto/Roboto-Thin.woff2") format("woff2"), url("../fonts/roboto/Roboto-Thin.woff") format("woff");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Light), url("../fonts/roboto/Roboto-Light.woff2") format("woff2"), url("../fonts/roboto/Roboto-Light.woff") format("woff");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Regular), url("../fonts/roboto/Roboto-Regular.woff2") format("woff2"), url("../fonts/roboto/Roboto-Regular.woff") format("woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Medium), url("../fonts/roboto/Roboto-Medium.woff2") format("woff2"), url("../fonts/roboto/Roboto-Medium.woff") format("woff");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: local(Roboto Bold), url("../fonts/roboto/Roboto-Bold.woff2") format("woff2"), url("../fonts/roboto/Roboto-Bold.woff") format("woff");
+  font-weight: 700;
+}
+
 a {
   text-decoration: none;
 }
@@ -5540,7 +5570,9 @@ button.btn-floating {
 .waves-effect.waves-teal .waves-ripple {
   background-color: rgba(0, 150, 136, 0.7);
 }
-
+.waves-effect.waves-indigo .waves-ripple{
+  background-color: rgba(63, 81, 181, 0.7);
+}
 .waves-effect input[type="button"], .waves-effect input[type="reset"], .waves-effect input[type="submit"] {
   border: 0;
   font-style: normal;
@@ -7303,20 +7335,19 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .table-of-contents a:hover {
-  color: #a8a8a8;
+  color: #5c6bc0;
   padding-left: 19px;
-  border-left: 1px solid #ee6e73;
 }
 
 .table-of-contents a.active {
   font-weight: 500;
   padding-left: 18px;
-  border-left: 2px solid #ee6e73;
+  border-left: 2px solid #5c6bc0;
 }
 
 .side-nav {
   position: fixed;
-  width: 300px;
+  width: 250px;
   left: 0;
   top: 0;
   margin: 0;
@@ -7411,7 +7442,7 @@ input[type=range]:focus::-ms-fill-upper {
   cursor: initial;
   pointer-events: none;
   color: rgba(0, 0, 0, 0.54);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 48px;
 }
@@ -7517,6 +7548,14 @@ input[type=range]:focus::-ms-fill-upper {
   .side-nav .user-view,
   .side-nav .userView {
     padding: 16px 16px 0;
+  }
+  #slide-out ul li{
+    display: block;
+    text-align: left;
+    width: 100%;
+  }
+  #slide-out ul li a{
+    padding: 0 32px;
   }
 }
 

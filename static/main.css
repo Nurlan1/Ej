@@ -1,0 +1,181 @@
+*{
+    outline: none;
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+}
+input, a{
+    outline: none;
+}
+a:hover{
+    color: inherit;
+}
+.brand-logo i{
+    margin: 0 20px;
+}
+nav .brand-logo i.material-icons{
+    font-size: 30px;
+}
+a.brand-logo{
+    font-size: 20px;
+}
+.nav-extended{
+    z-index: 99999999;
+}
+#nav-mobile{
+    line-height: 62px;
+}
+
+#authUser{
+    margin: 0 10px;
+}
+
+.card{
+    margin: 13% auto;
+    max-width: 400px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.reg{
+    margin: 3% auto;
+    max-width: 500px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#authForm{
+    padding: 0 30px;
+}
+#authForm span{
+    color: #ff1000;
+    font-family: 'Roboto', sans-serif;
+}
+#reg_form{
+    padding: 0 10px;
+}
+#reg_form #showPassword{
+    right: 10px;
+}
+#reg_form span{
+    color: #ff1000;
+    font-family: 'Roboto', sans-serif;
+}
+#reg_form.invalid {
+    border-bottom: 1px solid red;
+    box-shadow: 0 1px 0 0 red;
+}
+/*CSS styles for show button (eye)*/
+#showPassword{
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 60px;
+}
+#showPassword i{
+    color: #bdbdbd;
+}
+#showPassword i:hover{
+    color: #000;
+    transition: 0.8s;
+}
+#password{
+    position: relative;
+}
+
+/*CSS customization for tables*/
+#content{
+    width: auto;
+    margin: 0 15px;
+}
+#inGroup{
+    padding: 0 30px;
+}
+#tabs-swipe-demo{
+    margin: 10px 0 20px 0;
+}
+div.ui.tab-segment.active{
+    margin: 10px;
+    padding: 10px;
+}
+div.ui.secondary.pointing.menu{
+    margin: 15px 10px;
+    transition: .4ms;
+}
+.ui.secondary.pointing.menu .active.item,
+.ui.secondary.pointing.menu .active.item:hover{
+    color: #5c6bc0;
+    border-color: #5c6bc0;
+}
+.ui.tabular.menu .active.item{
+    border-color: #5c6bc0;
+}
+.ui.tabular.menu{
+    border-bottom: 1px solid #5c6bc0;
+}
+.ui.attached.segment{
+    border: 1px solid #5c6bc0;
+}
+.ui.tabular.menu .active.item{
+    background-color: #5c6bc0;
+    color: #fff;
+}
+div.ui.segment{
+    border: 1px solid #5c6bc0;
+}
+#reg_form span{
+    color: #5c6bc0;
+}
+.optgroup-option label::before{
+    margin-top: -10px;
+}
+.side-nav{
+  top: auto;
+}
+a.brand-logo{
+  margin-left: 15px;
+}
+#slide-out .tabs .indicator{
+  background-color: transparent;
+}
+#slide-out ul{
+  height: auto;
+  overflow: hidden;
+}
+#slide-out ul li{
+  display: block;
+  text-align: left;
+  width: 100%;
+}
+#slide-out ul li a{
+  padding: 0 32px;
+}
+#slide-out .tabs .tab a{
+  color: #000;
+}
+#slide-out .table-of-contents a.active {
+  color: #5c6bc0;
+}
+.webix_hs_center{
+  overflow-x: hidden;
+}
+div.background{
+  height: 64px;
+}
+.section,
+.table-of-contents li{
+  padding-top: 0;
+}
+a.brand-logo{
+  color: #fff;
+  line-height: 64px;
+}
+td.webix_first{
+  width: 50px;
+}
+.tb-icon{
+  line-height: 44px
+}
