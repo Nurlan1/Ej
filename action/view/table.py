@@ -195,6 +195,7 @@ def get_date(id, dis, sub, dtype):
 
 
 @app.route('/schedule', methods=["GET"])
+@crossdomain(origin='*')
 def schedule():
     date = request.args.get('date')
     date = datetime.date(int(date[:4]), int(date[5:7]), int(date[-2:])).weekday()
