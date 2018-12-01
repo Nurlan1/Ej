@@ -194,8 +194,9 @@ def get_date(id, dis, sub, dtype):
     return jsonify(output)
 
 
-@app.route('/schedule/<date>', methods=["GET"])
-def schedule(date):
+@app.route('/schedule', methods=["GET"])
+def schedule():
+    date = request.args.get('date')
     date = datetime.date(int(date[:4]), int(date[5:7]), int(date[-2:])).weekday()
     schedule = Schedule.query.filter_by(teacher_id=1, week_day=date).all()
     lessons=[]
