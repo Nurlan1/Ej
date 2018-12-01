@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from action import app,db
 from flask import jsonify
-from action.model.user import User, Group, Group_discipline, Student,DisciplineType, Schedule,FirstWeek,ExceptionDays
+from action.model.user import User, Group, Group_discipline, Student,DisciplineType, Schedule,FirstWeek,ExceptionDays,ClassTime
 from.user import token_required
 from .allow_origin import crossdomain
 from .subgroup import get_sub
@@ -88,6 +88,7 @@ def get_discipline(id):
     # current_user, token,
     current_user = User.query.filter_by(id=1).first()
     output = []
+    print(id)
     # query = db.session.query(Group_discipline)
     disciplines = Group_discipline.query.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id).group_by(Group_discipline.discipline_id)
     for discipline in disciplines:
@@ -191,6 +192,53 @@ def get_date(id, dis, sub, dtype):
 
 
     return jsonify(output)
+
+
+@app.route('/schedule/<date>', methods=["GET"])
+def schedule(date):
+    date = datetime.date(int(date[:4]), int(date[5:7]), int(date[-2:])).weekday()
+    schedule = Schedule.query.filter_by(teacher_id=1, week_day=date).all()
+    lessons=[]
+    for clas in schedule:
+        lesson = {}
+        group={}
+        lesson["type"] = clas.DisciplineType.name
+        lesson["id"] = clas.discipline_id
+        lesson["name"] = clas.Discipline.name
+        lesson["group"] = {"id": clas.group_id,
+                         "name": clas.group.name}
+        lesson["desciption"]="Плана нет пока!"
+        lesson["sub_group"]=clas.sub_id
+        lesson["beginning"] =clas.Time.begining
+        lesson["end"] = clas.Time.end
+        lesson["auditory"] = clas.auditory
+        lessons.append(lesson)
+
+    rooms = set(d.get('auditory') for d in lessons)
+    classrooms=[]
+    for room in rooms:
+        new_dict={}
+        new_dict["name"]=room
+        disciplines=[]
+        for lesson in lessons:
+            if room == lesson.get('auditory'):
+                disciplines.append(lesson)
+                lesson.pop('auditory', None)
+        new_dict["lessons"]=disciplines
+        classrooms.append(new_dict)
+
+
+    # create a dictionary
+    # new_dict = {}
+    #
+    # # iterate over the unique film names
+    # for k in lessons:
+    #     # make a list of all the films that match the name we're on
+    #     filmswiththisname = [d for d in lessons if d.get('auditory') == k]
+    #     # add the list of films to the new dictionary with the film name as the key.
+    #     new_dict[k] = filmswiththisname
+
+    return jsonify({'classRooms': classrooms})
 
 
 @app.route('/loggin', methods=['POST'])

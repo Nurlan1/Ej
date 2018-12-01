@@ -42,26 +42,38 @@
                                     <label for="pass">Пароль</label>
                                     <a href="#!" id="showPassword"><i class="material-icons">remove_red_eye</i></a>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="input-field col s12">
                                     <input name="confirm_password" id="confirm_password" type="password" class="validate">
                                     <label for="confirm_password">Подтвердите</label>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <select multiple>
-                                        <optgroup label="Чтение">
-                                          <option value="1" id="student" value="1" name="userStatus">Студент</option>
-                                        </optgroup>
-                                      <optgroup label="Редактирование" name="status">
-                                        <option value="3" id="admin" value="3" name="userStatus">Администратор</option>
-                                        <option value="2" id="teacher" value="2" name="userStatus">Преподователь</option>
-                                      </optgroup>
-                                    </select>
-                                    <label>Укажите статус</label>
+<div class="row">
+                                    <div class="col s4">
+                                        <div class="switch">
+                                            <label>
+                                             Администратор
+                                             <input type="checkbox" id="checkboxAdmin" name="admin">
+                                             <span class="lever"></span>
+                                           </label>
+                                        </div>
+                                    </div>
+                                    <div class="col s4">
+                                        <div class="switch">
+                                            <label>
+                                             Преподователь
+                                             <input type="checkbox" id="checkboxTeacher" name="teacher">
+                                             <span class="lever"></span>
+                                           </label>
+                                        </div>
+                                    </div>
+                                    <div class="col s4">
+                                        <div class="switch">
+                                            <label>
+                                             Студент<br>
+                                             <input type="checkbox" id="checkboxStudent" name="student">
+                                             <span class="lever"></span>
+                                           </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -76,11 +88,10 @@
     </div>
 
 
-
-    <script src="js/jquery-3.3.1.js"></script>
+    <script src="static/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js" charset="utf-8"></script>
-    <script src="js/materialize.js" charset="utf-8"></script>
-    <script src="js/main.js" charset="utf-8"></script>
+    <script src="static/materialize.js" charset="utf-8"></script>
+    <script src="static/main.js" charset="utf-8"></script>
 
 </body>
 

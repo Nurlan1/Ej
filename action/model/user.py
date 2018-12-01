@@ -69,7 +69,7 @@ class Discipline(db.Model):
     academic_hours = db.Column(db.Integer)
     groups = db.relationship('Group_discipline', backref='discipline')
     attendance = db.relationship('Attendance', backref='Discipline')
-
+    schedule = db.relationship('Schedule', backref='Discipline')
 
 class SubGroup(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -95,7 +95,7 @@ class Schedule(db.Model):
     discipline_id = db.Column(db.Integer, db.ForeignKey('discipline.id'))
     sub_id = db.Column(db.Integer)
     dis_type = db.Column(db.Integer, db.ForeignKey('discipline_type.id'))
-    time = db.Column(db.String)
+    time = db.Column(db.Integer, db.ForeignKey('class_time.id'))
     week_day = db.Column(db.Integer)
     weeks = db.Column(db.Integer)
     week_type = db.Column(db.Integer)
@@ -118,6 +118,13 @@ class ExceptionDays(db.Model):
 class FirstWeek(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String)
+
+
+class ClassTime(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    begining = db.Column(db.String)
+    end = db.Column(db.String)
+    disciplines = db.relationship('Schedule', backref='Time')
 
 
 def adduser(params):
