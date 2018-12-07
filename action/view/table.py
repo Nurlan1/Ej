@@ -5,7 +5,7 @@ from action.model.user import User, Group, Group_discipline, Student,DisciplineT
 from.user import token_required
 from .allow_origin import crossdomain
 from .subgroup import get_sub
-from flask import render_template, request, redirect, url_for, jsonify, make_response
+from flask import render_tкemplate, request, redirect, url_for, jsonify, make_response
 
 import calendar
 import locale
@@ -26,8 +26,8 @@ def get_groups():
     output = []
     for gr in groups:
 
-        group  = Group.query.filter_by(id=gr.group_id).first()
-        group_data={}
+        group = Group.query.filter_by(id=gr.group_id).first()
+        group_data = {}
         group_data['id'] = group.id
         group_data['name'] = group.name
         group_data['name_id'] = toLatin(group.name).replace(' ', '')
@@ -42,8 +42,6 @@ def get_student():
     students = Student.query.all()
     output = []
     for student in students:
-
-
         student_data = {}
         student_data['id']=student.id
         student_data['full_name']= student.full_name
@@ -65,7 +63,6 @@ def get_group(id, sub, subject):
     if sub == '0':
         output = []
         group_list = Student.query.filter_by(group_id=id).all()
-
         for student in group_list:
             student_data = {}
             student_data['id'] = student.id
@@ -125,7 +122,7 @@ def toLatin(text):
             j = Rus.index(text[i])
             translation += Eng[j]
         except:
-            translation+=text[i]
+            translation += text[i]
     return str(translation)
 
 
@@ -152,7 +149,7 @@ def get_date(id, dis, sub, dtype):
     infos = Schedule.query.filter_by(group_id=id, teacher_id=current_user.rteacher[0].id, discipline_id=dis, sub_id=sub, dis_type=dtype).all()
     exceptions = ExceptionDays.query.all()
     print(infos)
-    dates=[]
+    dates = []
     for info in infos:
         today = datetime.datetime.strptime(FirstWeek.query.filter_by(id=1).first().date, "%Y-%m-%d")
         daydif = (info.week_day-1)-today.weekday()
@@ -195,11 +192,12 @@ def get_date(id, dis, sub, dtype):
 
 
 @app.route('/schedule', methods=["GET"])
-@crossdomain(origin='http://localhost:3000')
+@crossdomain(origin='*')
 def schedule():
     date = request.args.get('date')
     date = datetime.date(int(date[:4]), int(date[5:7]), int(date[-2:])).weekday()
     schedule = Schedule.query.filter_by(teacher_id=1, week_day=date).all()
+
     lessons=[]
     for clas in schedule:
         lesson = {}
