@@ -5,7 +5,7 @@ from action.model.user import User, Group, Group_discipline, Student,DisciplineT
 from.user import token_required
 from .allow_origin import crossdomain
 from .subgroup import get_sub
-from flask import render_tкemplate, request, redirect, url_for, jsonify, make_response
+from flask import render_template, request, redirect, url_for, jsonify, make_response
 
 import calendar
 import locale
@@ -207,7 +207,7 @@ def schedule():
         lesson["name"] = clas.Discipline.name
         lesson["group"] = {"id": clas.group_id,
                          "name": clas.group.name}
-        lesson["desciption"]="Плана нет пока!"
+        lesson["description"]="Плана нет пока!"
         lesson["sub_group"]=clas.sub_id
         lesson["beginning"] =clas.Time.begining
         lesson["end"] = clas.Time.end
