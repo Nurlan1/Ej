@@ -138,7 +138,7 @@ def logged(current_user, token, public_Id):
 
     resp = make_response(render_template('index.html', name=current_user.name))
     resp.set_cookie('x-access-token', token)
-    return resp
+    return redirect("http://localhost:3000")
 
 
 @app.route('/logout', methods=['GET'])
